@@ -16,6 +16,10 @@ public:
 
 private:
 	/** Crosshair asset pointer */
+<<<<<<< HEAD
+=======
+	class UTexture2D* CrosshairTex;
+>>>>>>> f9d5048e8ebff98438f81ccb8b4b11dcd708af01
 
 };
 
