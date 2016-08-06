@@ -44,6 +44,7 @@ ARobotCharacter::ARobotCharacter()
 												   // Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 												   // are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 
+
 	isPunching = false;
 	health = 100;
 }
@@ -78,6 +79,8 @@ void ARobotCharacter::SetupPlayerInputComponent(class UInputComponent* InputComp
 	// handle touch devices
 	InputComponent->BindTouch(IE_Pressed, this, &ARobotCharacter::TouchStarted);
 	InputComponent->BindTouch(IE_Released, this, &ARobotCharacter::TouchStopped);
+
+	isPunching = false;
 }
 
 
@@ -124,6 +127,10 @@ bool ARobotCharacter::ServerSetIsPunching_Validate(bool newIsPunching) {
 }
 
 void ARobotCharacter::ServerSetIsPunching_Implementation(bool newIsPunching) {
+	SetIsPunching(newIsPunching);
+}
+
+void ARobotCharacter::SetIsPunchingFromBP(bool newIsPunching) {
 	SetIsPunching(newIsPunching);
 }
 

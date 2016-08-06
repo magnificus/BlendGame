@@ -8,22 +8,15 @@
 
 ARobotsHUD::ARobotsHUD()
 {
-<<<<<<< HEAD
-
-=======
 	// Set the crosshair texture
 	static ConstructorHelpers::FObjectFinder<UTexture2D> CrosshiarTexObj(TEXT("/Game/FirstPerson/Textures/FirstPersonCrosshair"));
 	CrosshairTex = CrosshiarTexObj.Object;
->>>>>>> f9d5048e8ebff98438f81ccb8b4b11dcd708af01
 }
 
 
 void ARobotsHUD::DrawHUD()
 {
-<<<<<<< HEAD
 
-
-=======
 	Super::DrawHUD();
 
 	// Draw very simple crosshair
@@ -35,10 +28,9 @@ void ARobotsHUD::DrawHUD()
 	const FVector2D CrosshairDrawPosition( (Center.X),
 										   (Center.Y));
 
-	// draw the crosshair
-	FCanvasTileItem TileItem( CrosshairDrawPosition, CrosshairTex->Resource, FLinearColor::White);
-	TileItem.BlendMode = SE_BLEND_Translucent;
-	Canvas->DrawItem( TileItem );
->>>>>>> f9d5048e8ebff98438f81ccb8b4b11dcd708af01
+	//// draw the crosshair
+	//FCanvasTileItem TileItem( CrosshairDrawPosition, CrosshairTex->Resource, FLinearColor::White);
+	//TileItem.BlendMode = SE_BLEND_Translucent;
+	//Canvas->DrawItem( TileItem );
 }
 

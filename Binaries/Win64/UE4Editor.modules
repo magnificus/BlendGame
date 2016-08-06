@@ -1,15 +1,8 @@
 {
 	"Changelist" : 3039270,
-<<<<<<< HEAD
-	"BuildId" : "1df2f6cd-87d5-4266-bfda-c937d7a99d66",
+	"BuildId" : "150dc7f1-431f-4aa7-bede-0d6c908f1ab1",
 	"Modules" : 
 	{
-		"Robots" : "UE4Editor-Robots-1667.dll"
-=======
-	"BuildId" : "",
-	"Modules" : 
-	{
-		"Robots" : "UE4Editor-Robots.dll"
->>>>>>> f9d5048e8ebff98438f81ccb8b4b11dcd708af01
+		"Robots" : "UE4Editor-Robots-3834.dll"
 	}
 }

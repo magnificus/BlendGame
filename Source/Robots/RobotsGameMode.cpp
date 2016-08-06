@@ -9,11 +9,7 @@ ARobotsGameMode::ARobotsGameMode()
 	: Super()
 {
 	// set default pawn class to our Blueprinted character
-<<<<<<< HEAD
 	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnClassFinder(TEXT("/Game/RobotChar"));
-=======
-	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnClassFinder(TEXT("/Game/FirstPersonCPP/Blueprints/FirstPersonCharacter"));
->>>>>>> f9d5048e8ebff98438f81ccb8b4b11dcd708af01
 	DefaultPawnClass = PlayerPawnClassFinder.Class;
 
 	// use our custom HUD class

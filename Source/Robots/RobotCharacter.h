@@ -16,6 +16,12 @@ class ARobotCharacter : public ACharacter
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 		class UCameraComponent* FollowCamera;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = PunchZone, meta = (AllowPrivateAccess = "true"))
+		class UBoxComponent* PunchZone;
+	
+
+
 public:
 	ARobotCharacter();
 
@@ -45,7 +51,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Gameplay, Replicated)
 		bool isPunching;
 	void SetIsPunching(bool newIsPunching);
-	UFUNCTION(Reliable, Server, WidthValidation)
+	UFUNCTION(Reliable, Server, WithValidation)
 	void ServerSetIsPunching(bool newIsPunching);
 	virtual void ServerSetIsPunching_Implementation(bool newIsPunching);
 	virtual bool ServerSetIsPunching_Validate(bool newIsPunching);
@@ -60,6 +66,10 @@ public:
 
 	//UFUNCTION(Reliable, Server, WithValidation)
 	//void changeMaxSpeedTo(float newSpeed);
+	UFUNCTION(BlueprintCallable, Category = "Gameplay")
+	void SetIsPunchingFromBP(bool punch);
+
+
 
 
 protected:
