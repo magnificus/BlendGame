@@ -43,6 +43,9 @@ ARobotCharacter::ARobotCharacter()
 
 												   // Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 												   // are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
+	PunchZone = CreateDefaultSubobject<UBoxComponent>(TEXT("PunchZone"));
+	PunchZone->SetupAttachment(RootComponent);
+
 
 
 	isPunching = false;
@@ -173,7 +176,7 @@ void ARobotCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
-//	DOREPLIFETIME(ARobotCharacter, isPunching);
+	DOREPLIFETIME(ARobotCharacter, isPunching);
 	DOREPLIFETIME(ARobotCharacter, health);
 	DOREPLIFETIME(ARobotCharacter, speed);
 }
