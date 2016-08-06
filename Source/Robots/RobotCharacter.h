@@ -3,13 +3,14 @@
 #include "GameFramework/Character.h"
 #include "RobotCharacter.generated.h"
 
+
 UCLASS(config = Game)
 class ARobotCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
 		/** Camera boom positioning the camera behind the character */
-		UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 		class USpringArmComponent* CameraBoom;
 
 	/** Follow camera */
@@ -18,6 +19,37 @@ class ARobotCharacter : public ACharacter
 public:
 	ARobotCharacter();
 
+
+	// health
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Gameplay, Replicated)
+		float health;
+	void SetHealth(float health);
+	UFUNCTION(Reliable, Server, WithValidation)
+	void ServerSetHealth(float newHealth);
+	virtual void ServerSetHealth_Implementation(float newHealth);
+	virtual bool ServerSetHealth_Validate(float newHealth);
+
+
+	// speed
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Gameplay, Replicated)
+		float speed;
+	void SetSpeed(float speed);
+	UFUNCTION(Reliable, Server, WithValidation)
+	void ServerSetSpeed(float newSpeed);
+	virtual void ServerSetSpeed_Implementation(float newSpeed);
+	virtual bool ServerSetSpeed_Validate(float newSpeed);
+
+	// ispunching
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Gameplay, Replicated)
+		bool isPunching;
+	void SetIsPunching(bool newIsPunching);
+	UFUNCTION(Reliable, Server, WidthValidation)
+	void ServerSetIsPunching(bool newIsPunching);
+	virtual void ServerSetIsPunching_Implementation(bool newIsPunching);
+	virtual bool ServerSetIsPunching_Validate(bool newIsPunching);
+
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 		float BaseTurnRate;
@@ -25,6 +57,10 @@ public:
 	/** Base look up/down rate, in deg/sec. Other scaling may affect final rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 		float BaseLookUpRate;
+
+	//UFUNCTION(Reliable, Server, WithValidation)
+	//void changeMaxSpeedTo(float newSpeed);
+
 
 protected:
 
@@ -51,6 +87,14 @@ protected:
 
 	/** Handler for when a touch input stops. */
 	void TouchStopped(ETouchIndex::Type FingerIndex, FVector Location);
+
+	void FirePressed();
+	void FireReleased();
+
+	void SprintPressed();
+	void SprintReleased();
+
+
 
 protected:
 	// APawn interface

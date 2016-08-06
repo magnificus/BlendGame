@@ -2,6 +2,9 @@
 
 #include "Robots.h"
 #include "RobotCharacter.h"
+#include "UnrealNetwork.h"
+#include "Engine.h"
+
 
 //////////////////////////////////////////////////////////////////////////
 // ARobotCharacter
@@ -40,6 +43,9 @@ ARobotCharacter::ARobotCharacter()
 
 												   // Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 												   // are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
+
+	isPunching = false;
+	health = 100;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -51,6 +57,12 @@ void ARobotCharacter::SetupPlayerInputComponent(class UInputComponent* InputComp
 	check(InputComponent);
 	InputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	InputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
+
+	InputComponent->BindAction("Fire", IE_Pressed, this, &ARobotCharacter::FirePressed);
+	InputComponent->BindAction("Fire", IE_Released, this, &ARobotCharacter::FireReleased);
+
+	InputComponent->BindAction("Sprint", IE_Pressed, this, &ARobotCharacter::SprintPressed);
+	InputComponent->BindAction("Sprint", IE_Released, this, &ARobotCharacter::SprintReleased);
 
 	InputComponent->BindAxis("MoveForward", this, &ARobotCharacter::MoveForward);
 	InputComponent->BindAxis("MoveRight", this, &ARobotCharacter::MoveRight);
@@ -68,6 +80,96 @@ void ARobotCharacter::SetupPlayerInputComponent(class UInputComponent* InputComp
 	InputComponent->BindTouch(IE_Released, this, &ARobotCharacter::TouchStopped);
 }
 
+
+// sprinting
+void ARobotCharacter::SprintPressed() {
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, TEXT("Sprinting..."));
+	SetSpeed(600);
+}
+
+void ARobotCharacter::SprintReleased() {
+	SetSpeed(300);
+}
+
+
+void ARobotCharacter::SetSpeed(float newSpeed)
+{
+	speed = newSpeed;
+	GetCharacterMovement()->MaxWalkSpeed = speed;
+
+	if (Role < ROLE_Authority) {
+		ServerSetSpeed(newSpeed);
+	}
+}
+
+bool ARobotCharacter::ServerSetSpeed_Validate(float newSpeed) {
+	return true;
+}
+
+void ARobotCharacter::ServerSetSpeed_Implementation(float newSpeed) {
+	SetSpeed(newSpeed);
+}
+
+// punching
+
+void ARobotCharacter::SetIsPunching(bool newIsPunching) {
+	isPunching = newIsPunching;
+	if (Role < ROLE_Authority) {
+		ServerSetIsPunching(newIsPunching);
+	}
+}
+
+bool ARobotCharacter::ServerSetIsPunching_Validate(bool newIsPunching) {
+	return true;
+}
+
+void ARobotCharacter::ServerSetIsPunching_Implementation(bool newIsPunching) {
+	SetIsPunching(newIsPunching);
+}
+
+void ARobotCharacter::FirePressed() {
+	SetIsPunching(true);
+}
+
+void ARobotCharacter::FireReleased() {
+	SetIsPunching(false);
+}
+
+void ARobotCharacter::SetHealth(float newHealth)
+{
+	// Change the value of the bSomeBool property
+	health = newHealth;
+
+	// If this next check succeeds, we are *not* the authority, meaning we are a network client.
+	// In this case we also want to call the server function to tell it to change the bSomeBool property as well.
+	if (Role < ROLE_Authority)
+	{
+		ServerSetHealth(newHealth);
+	}
+}
+
+bool ARobotCharacter::ServerSetHealth_Validate(float health)
+{
+	return true;
+}
+
+void ARobotCharacter::ServerSetHealth_Implementation(float newHealth)
+{
+	// This function is only called on the server (where Role == ROLE_Authority), called over the network by clients.
+	// We need to call SetSomeBool() to actually change the value of the bool now!
+	// Inside that function, Role == ROLE_Authority, so it won't try to call ServerSetSomeBool() again.
+	SetHealth(newHealth);
+}
+
+
+void ARobotCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+//	DOREPLIFETIME(ARobotCharacter, isPunching);
+	DOREPLIFETIME(ARobotCharacter, health);
+	DOREPLIFETIME(ARobotCharacter, speed);
+}
 
 void ARobotCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
 {
@@ -97,6 +199,7 @@ void ARobotCharacter::LookUpAtRate(float Rate)
 	// calculate delta for this frame from the rate information
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
 }
+
 
 void ARobotCharacter::MoveForward(float Value)
 {
