@@ -13,7 +13,6 @@ ARobotsGameMode::ARobotsGameMode()
 	// set default pawn class to our Blueprinted character
 	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnClassFinder(TEXT("/Game/robotdude/RobotChar"));
 	DefaultPawnClass = PlayerPawnClassFinder.Class;
-
 	HUDClass = ARobotsHUD::StaticClass();
 
 
@@ -21,6 +20,6 @@ ARobotsGameMode::ARobotsGameMode()
 }
 
 void ARobotsGameMode::RestartLevel() {
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, "Starting level house");
+	GEngine->AddOnScreenDebugMessage(3, 15.0f, FColor::Green, "Starting level house");
 	GetWorld()->ServerTravel("World'/Game/maps/house.house?Listen");
 }

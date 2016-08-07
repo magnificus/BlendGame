@@ -2,8 +2,6 @@
 
 #include "Robots.h"
 #include "menuGameMode.h"
-#include "Engine.h"
-
 
 
 
@@ -20,13 +18,11 @@ AmenuGameMode::AmenuGameMode()
 
 void AmenuGameMode::HostGame()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, "Starting lobbylevel");
-	GetWorld()->ServerTravel("/Game/maps/lobbyLevel");
+	GetWorld()->ServerTravel("/Game/maps/lobbyLevel?Listen", true);
 }
 
-void AmenuGameMode::ExecuteFunction(FString parameter) {
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, "Starting lobbylevel");
-	if (parameter.Equals(FString("host"))) {
-		HostGame();
-	}
+
+
+void AmenuGameMode::JoinGame(FString address) {
+	UGameplayStatics::GetPlayerController(GetWorld(), 0)->ClientTravel(address, TRAVEL_Absolute);
 }

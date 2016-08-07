@@ -19,9 +19,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Gameplay")
 	void HostGame();
-
-	UFUNCTION(BlueprintCallable, Category = "Menu")
-	void ExecuteFunction(FString parameter);
+	
+	UFUNCTION(BlueprintCallable, Category = "Gameplay")
+	void JoinGame(FString address);
 	
 	
 	
