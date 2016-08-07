@@ -49,6 +49,7 @@ ARobotCharacter::ARobotCharacter()
 
 
 	isPunching = false;
+	alive = true;
 	health = 100;
 }
 
@@ -79,12 +80,25 @@ void ARobotCharacter::SetupPlayerInputComponent(class UInputComponent* InputComp
 	InputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 	InputComponent->BindAxis("LookUpRate", this, &ARobotCharacter::LookUpAtRate);
 
+	InputComponent->BindAction("Enter Lobby", IE_Pressed, this, &ARobotCharacter::RestartPressed);
+
+
 	// handle touch devices
 	InputComponent->BindTouch(IE_Pressed, this, &ARobotCharacter::TouchStarted);
 	InputComponent->BindTouch(IE_Released, this, &ARobotCharacter::TouchStopped);
 
 	isPunching = false;
+	alive = true;
 }
+
+void ARobotCharacter::RestartPressed() {
+	APlayerController* controller = (APlayerController*) GetController();
+	GetWorld()->ServerTravel("World'/Game/maps/house.house?Listen");
+}
+
+//void ARobotCharacter::ToLobbyPressed() {
+//	APlayerController* controller
+//}
 
 
 // sprinting
@@ -125,6 +139,7 @@ void ARobotCharacter::SetIsPunching(bool newIsPunching) {
 	}
 }
 
+
 bool ARobotCharacter::ServerSetIsPunching_Validate(bool newIsPunching) {
 	return true;
 }
@@ -135,6 +150,24 @@ void ARobotCharacter::ServerSetIsPunching_Implementation(bool newIsPunching) {
 
 void ARobotCharacter::SetIsPunchingFromBP(bool newIsPunching) {
 	SetIsPunching(newIsPunching);
+}
+
+// alive
+
+void ARobotCharacter::SetIsAlive(bool newIsAlive) {
+	alive = newIsAlive;
+	if (Role < ROLE_Authority) {
+		ServerSetIsPunching(newIsAlive);
+	}
+
+}
+
+bool ARobotCharacter::ServerSetIsAlive_Validate(bool newIsAlive) {
+	return true;
+}
+
+void ARobotCharacter::ServerSetIsAlive_Implementation(bool newIsAlive) {
+	SetIsAlive(newIsAlive);
 }
 
 void ARobotCharacter::FirePressed() {
@@ -179,6 +212,7 @@ void ARobotCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 	DOREPLIFETIME(ARobotCharacter, isPunching);
 	DOREPLIFETIME(ARobotCharacter, health);
 	DOREPLIFETIME(ARobotCharacter, speed);
+	DOREPLIFETIME(ARobotCharacter, alive);
 }
 
 void ARobotCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)

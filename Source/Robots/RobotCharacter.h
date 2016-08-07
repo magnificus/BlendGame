@@ -25,6 +25,15 @@ class ARobotCharacter : public ACharacter
 public:
 	ARobotCharacter();
 
+	// alive
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Gameplay, Replicated)
+		bool alive;
+	void SetIsAlive(bool newAlive);
+	UFUNCTION(Reliable, Server, WithValidation)
+	void ServerSetIsAlive(bool newAlive);
+	virtual void ServerSetIsAlive_Implementation(bool newAlive);
+	virtual bool ServerSetIsAlive_Validate(bool newAlive);
+
 
 	// health
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Gameplay, Replicated)
@@ -103,6 +112,8 @@ protected:
 
 	void SprintPressed();
 	void SprintReleased();
+	
+	void RestartPressed();
 
 
 
