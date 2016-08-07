@@ -4,6 +4,8 @@
 #include "RobotsGameMode.h"
 #include "RobotsHUD.h"
 #include "RobotsCharacter.h"
+#include "Engine.h"
+
 
 ARobotsGameMode::ARobotsGameMode()
 	: Super()
@@ -12,6 +14,13 @@ ARobotsGameMode::ARobotsGameMode()
 	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnClassFinder(TEXT("/Game/robotdude/RobotChar"));
 	DefaultPawnClass = PlayerPawnClassFinder.Class;
 
-	// use our custom HUD class
 	HUDClass = ARobotsHUD::StaticClass();
+
+
+
+}
+
+void ARobotsGameMode::RestartLevel() {
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, "Starting level house");
+	GetWorld()->ServerTravel("World'/Game/maps/house.house?Listen");
 }
