@@ -12,9 +12,24 @@ AmenuGameMode::AmenuGameMode()
 	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnClassFinder(TEXT("/Game/maps/menuCharacter"));
 	DefaultPawnClass = PlayerPawnClassFinder.Class;
 
+	static ConstructorHelpers::FClassFinder<APlayerController> PlayerControllerClassFinder(TEXT("/Game/robotdude/RobotControllerBP"));
+	PlayerControllerClass = PlayerControllerClassFinder.Class;
 
 }
 
+
+void AmenuGameMode::ExecuteFunction(FString parameter)
+{
+	if (parameter.Equals("host")) {
+		HostGame();
+	} else if (parameter.Equals("join")){
+		ARobotController* c = (ARobotController*) UGameplayStatics::GetPlayerController(GetWorld(), 0);
+		c->showJoinWidget();
+
+	} else if (parameter.Equals("quit")){
+		FGenericPlatformMisc::RequestExit(false);
+	}
+}
 
 void AmenuGameMode::HostGame()
 {

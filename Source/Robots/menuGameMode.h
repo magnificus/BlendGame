@@ -3,6 +3,7 @@
 #pragma once
 
 #include "GameFramework/GameMode.h"
+#include "RobotController.h"
 #include "menuGameMode.generated.h"
 
 /**
@@ -16,6 +17,12 @@ class ROBOTS_API AmenuGameMode : public AGameMode
 
 public:
 	AmenuGameMode();
+
+
+
+
+	UFUNCTION(BlueprintCallable, Category = "Gameplay")
+	void ExecuteFunction(FString parameter);
 
 	UFUNCTION(BlueprintCallable, Category = "Gameplay")
 	void HostGame();

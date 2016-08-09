@@ -13,7 +13,15 @@ class ROBOTS_API ARobotController : public APlayerController
 {
 	GENERATED_BODY()
 	
-	
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widgets")
+	TSubclassOf<class UUserWidget> joinWidget;
+
+	// Variable to hold the widget After Creating it.
+	UUserWidget* myJoinWidget;
+
+	void showJoinWidget();
+
 	
 	
 };

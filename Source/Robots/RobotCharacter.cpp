@@ -80,7 +80,7 @@ void ARobotCharacter::SetupPlayerInputComponent(class UInputComponent* InputComp
 	InputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 	InputComponent->BindAxis("LookUpRate", this, &ARobotCharacter::LookUpAtRate);
 
-	InputComponent->BindAction("Enter Lobby", IE_Pressed, this, &ARobotCharacter::RestartPressed);
+	InputComponent->BindAction("Start Game", IE_Pressed, this, &ARobotCharacter::RestartPressed);
 
 
 	// handle touch devices
@@ -93,7 +93,7 @@ void ARobotCharacter::SetupPlayerInputComponent(class UInputComponent* InputComp
 
 void ARobotCharacter::RestartPressed() {
 	APlayerController* controller = (APlayerController*) GetController();
-	GetWorld()->ServerTravel("World'/Game/maps/house.house?Listen");
+	GetWorld()->ServerTravel("/Game/maps/house?Listen");
 }
 
 //void ARobotCharacter::ToLobbyPressed() {
