@@ -1,34 +1,57 @@
-// Copyright 1998-2016 Epic Games, Inc. All Rights Reserved.
+// Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Robots.h"
 #include "RobotsHUD.h"
-#include "Engine/Canvas.h"
-#include "TextureResource.h"
-#include "CanvasItem.h"
+
+#include "ChatWidget.h"
+#include "RobotPlayerState.h"
 
 ARobotsHUD::ARobotsHUD()
 {
-	// Set the crosshair texture
+
 }
 
+void ARobotsHUD::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+
+	if (GEngine && GEngine->GameViewport) // make sure our screen is ready for the widget
+	{
+		SAssignNew(MyUIWidget, SChatWidget).OwnerHUD(this); // add the widget and assign it to the var
+		GEngine->GameViewport->AddViewportWidgetContent(SNew(SWeakWidget).PossiblyNullContent(MyUIWidget.ToSharedRef()));
+	}
+}
 
 void ARobotsHUD::DrawHUD()
 {
-
 	Super::DrawHUD();
 
-	// Draw very simple crosshair
+	if (!MyPC)
+	{
+		MyPC = GetOwningPlayerController();
+		AddMessageBP(2, TEXT(""), TEXT(" Enter to chat."), false); // random Welcome message shown to the local player. To be deleted. note type 2 is system message and username is blank
+		return;
+	}
 
-	// find center of the Canvas
-	const FVector2D Center(Canvas->ClipX * 0.5f, Canvas->ClipY * 0.5f);
-
-	// offset by half the texture's dimensions so that the center of the texture aligns with the center of the Canvas
-	const FVector2D CrosshairDrawPosition( (Center.X),
-										   (Center.Y));
-
-	//// draw the crosshair
-	//FCanvasTileItem TileItem( CrosshairDrawPosition, CrosshairTex->Resource, FLinearColor::White);
-	//TileItem.BlendMode = SE_BLEND_Translucent;
-	//Canvas->DrawItem( TileItem );
+	if (MyPC->WasInputKeyJustPressed(EKeys::Enter))
+		if (MyUIWidget.IsValid() && MyUIWidget->ChatInput.IsValid())
+			FSlateApplication::Get().SetKeyboardFocus(MyUIWidget->ChatInput); // When the user presses Enter he will focus his keypresses on the chat input bar
 }
 
+void ARobotsHUD::AddMessageBP(const int32 Type, const FString& Username, const FString& Text, const bool Replicate)
+{
+	if (!MyPC || !MyUIWidget.IsValid())
+		return;
+
+	FSChatMsg newmessage;
+	newmessage.Init(Type, FText::FromString(Username), FText::FromString(Text)); // initialize our struct and prep the message
+	if (newmessage.Type > 0)
+		if (Replicate)
+		{
+			ARobotPlayerState* MyPS = Cast<ARobotPlayerState>(MyPC->PlayerState);
+			if (MyPS)
+				MyPS->UserChatRPC(newmessage); // Send the complete chat message to the PlayerState so it can be replicated then displayed
+		}
+		else
+			MyUIWidget->AddMessage(newmessage); // Send a local message to this client only, no one else receives it
+}

@@ -21,11 +21,8 @@ void ARobotController::showJoinWidget() {
 		// Create the widget and store it.
 		myJoinWidget = CreateWidget<UUserWidget>(this, joinWidget);
 
-		// now you can use the widget directly since you have a referance for it.
-		// Extra check to  make sure the pointer holds the widget.
 		if (myJoinWidget)
 		{
-			//let add it to the view port
 			myJoinWidget->AddToViewport();
 		}
 	}

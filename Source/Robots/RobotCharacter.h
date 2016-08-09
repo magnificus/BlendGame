@@ -28,6 +28,7 @@ public:
 	// alive
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Gameplay, Replicated)
 		bool alive;
+	UFUNCTION(BlueprintCallable, Category = "Alive")
 	void SetIsAlive(bool newAlive);
 	UFUNCTION(Reliable, Server, WithValidation)
 	void ServerSetIsAlive(bool newAlive);

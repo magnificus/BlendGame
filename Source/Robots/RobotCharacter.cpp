@@ -103,7 +103,6 @@ void ARobotCharacter::RestartPressed() {
 
 // sprinting
 void ARobotCharacter::SprintPressed() {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, TEXT("Sprinting..."));
 	SetSpeed(600);
 }
 
@@ -171,7 +170,8 @@ void ARobotCharacter::ServerSetIsAlive_Implementation(bool newIsAlive) {
 }
 
 void ARobotCharacter::FirePressed() {
-	SetIsPunching(true);
+	if (alive)
+		SetIsPunching(true);
 }
 
 void ARobotCharacter::FireReleased() {

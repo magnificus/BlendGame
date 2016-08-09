@@ -11,6 +11,10 @@ class ARobotsGameMode : public AGameMode
 public:
 	ARobotsGameMode();
 	void RestartLevel();
+
+
+	void PlayerDeath();
+
 };
 
 
