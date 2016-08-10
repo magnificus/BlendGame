@@ -4,6 +4,7 @@
 #include "RobotCharacter.h"
 #include "UnrealNetwork.h"
 #include "Engine.h"
+#include "RobotsGameMode.h"
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -155,8 +156,15 @@ void ARobotCharacter::SetIsPunchingFromBP(bool newIsPunching) {
 
 void ARobotCharacter::SetIsAlive(bool newIsAlive) {
 	alive = newIsAlive;
+
 	if (Role < ROLE_Authority) {
-		ServerSetIsPunching(newIsAlive);
+		ServerSetIsAlive(newIsAlive);
+	}
+
+	if (!alive) {
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, "Player Death!");
+		ARobotsGameMode* g = (ARobotsGameMode*)GetWorld()->GetAuthGameMode();
+		g->PlayerDeath();
 	}
 
 }
@@ -167,6 +175,7 @@ bool ARobotCharacter::ServerSetIsAlive_Validate(bool newIsAlive) {
 
 void ARobotCharacter::ServerSetIsAlive_Implementation(bool newIsAlive) {
 	SetIsAlive(newIsAlive);
+
 }
 
 void ARobotCharacter::FirePressed() {

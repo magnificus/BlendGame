@@ -15,6 +15,8 @@ public:
 
 	void PlayerDeath();
 
+	void SendServerMessage(FText message);
+
 };
 
 
