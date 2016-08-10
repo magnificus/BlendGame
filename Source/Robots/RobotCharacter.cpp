@@ -94,7 +94,8 @@ void ARobotCharacter::SetupPlayerInputComponent(class UInputComponent* InputComp
 
 void ARobotCharacter::RestartPressed() {
 	APlayerController* controller = (APlayerController*) GetController();
-	GetWorld()->ServerTravel("/Game/maps/house?Listen");
+	ARobotsGameMode* g = (ARobotsGameMode*)GetWorld()->GetAuthGameMode();
+	g->RestartLevel(1);
 }
 
 //void ARobotCharacter::ToLobbyPressed() {

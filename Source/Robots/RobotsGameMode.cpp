@@ -22,6 +22,12 @@ ARobotsGameMode::ARobotsGameMode()
 
 
 }
+void ARobotsGameMode::RestartLevel(float delay) {
+	FTimerHandle UnusedHandle;
+	SendServerMessage(FText::FromString("Restarting!"));
+	GetWorldTimerManager().SetTimer(
+		UnusedHandle, this, &ARobotsGameMode::RestartLevel, delay, false);
+}
 
 void ARobotsGameMode::RestartLevel() {
 	GetWorld()->ServerTravel("/Game/maps/house?Listen");
@@ -43,9 +49,7 @@ void ARobotsGameMode::PlayerDeath() {
 	SendServerMessage(FText::FromString("Remaining Players: " + FString::FromInt(aliveCount)));
 	if (aliveCount <= 1) {
 		SendServerMessage(FText::FromString("Round Over!"));
-		FTimerHandle UnusedHandle;
-		GetWorldTimerManager().SetTimer(
-			UnusedHandle, this, &ARobotsGameMode::RestartLevel, 3, false);
+		RestartLevel(3);
 	}
 }
 

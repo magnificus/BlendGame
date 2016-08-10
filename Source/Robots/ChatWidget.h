@@ -16,6 +16,8 @@ class ROBOTS_API SChatWidget : public SCompoundWidget
 
 		SLATE_END_ARGS()
 
+
+
 public:
 
 	void Construct(const FArguments& InArgs);
@@ -24,7 +26,7 @@ public:
 	TArray<TSharedPtr<FSChatMsg>> Items; // array of all the current items in this players chat box
 	TSharedPtr< SListView< TSharedPtr<FSChatMsg> > > ListViewWidget; // the acutall widgets for each chat element
 
-	const FSlateFontInfo fontinfo = FSlateFontInfo(FPaths::EngineContentDir() / TEXT("UI/Fonts/Comfortaa-Regular.ttf"), 15); // Font, Font Size  for the chatbox
+	const FSlateFontInfo fontinfo = FSlateFontInfo(FPaths::EngineContentDir() / TEXT("Slate/Fonts/Roboto-Bold.ttf"), 16); // Font, Font Size  for the chatbox
 
 	TWeakObjectPtr<class ARobotsHUD> OwnerHUD;
 

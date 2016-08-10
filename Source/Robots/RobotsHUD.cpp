@@ -29,7 +29,7 @@ void ARobotsHUD::DrawHUD()
 	if (!MyPC)
 	{
 		MyPC = GetOwningPlayerController();
-		AddMessageBP(2, TEXT(""), TEXT(" Enter to chat."), false); // random Welcome message shown to the local player. To be deleted. note type 2 is system message and username is blank
+		AddMessageBP(2, TEXT(""), TEXT("Enter to chat."), false); // random Welcome message shown to the local player. To be deleted. note type 2 is system message and username is blank
 		return;
 	}
 

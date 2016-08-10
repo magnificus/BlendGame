@@ -55,6 +55,7 @@ class ROBOTS_API ARobotsHUD : public AHUD
 
 public:
 
+
 	ARobotsHUD();
 
 	TSharedPtr<class SChatWidget> MyUIWidget; // Reference to the main chat widget

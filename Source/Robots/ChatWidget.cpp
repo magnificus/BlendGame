@@ -42,8 +42,9 @@ void SChatWidget::Construct(const FArguments& InArgs)
 		.OnTextChanged(this, &SChatWidget::OnChatTextChanged) // function to call when text is changed
 		.ClearKeyboardFocusOnCommit(true)
 		.Text(FText::FromString(""))
-		.Font(FSlateFontInfo(fontinfo.FontMaterial, fontinfo.Size + 2)) // set the font for the input and add 2 font size
-		.ColorAndOpacity(FLinearColor(1.f, 1.f, 1.f, 0.9f)) // send color and alpha R G B A
+		//.Font(FSlateFontInfo(FPaths::EngineContentDir() / TEXT("Slate/Fonts/Roboto-Bold.ttf"), 18))
+		.Font(FSlateFontInfo(TEXT("/Game/UI/MandroidBB.ttf"), 18))
+	.ColorAndOpacity(FLinearColor(1.f, 1.f, 1.f, 0.9f)) // send color and alpha R G B A
 		.HintText(FText::FromString("Send a message to everyone.")) // hint message (optional)
 		]
 		]
@@ -163,7 +164,11 @@ void SChatWidget::OnChatTextCommitted(const FText& InText, ETextCommit::Type Com
 		ChatInput->SetText(FText()); // clear the chat box now were done with it
 	}
 
-	FSlateApplication::Get().SetUserFocusToGameViewport(0, EFocusCause::SetDirectly); // set the players focus back to the gameport
+	auto CurrentFocus = FSlateApplication::Get().GetKeyboardFocusedWidget();
+	FSlateApplication::Get().ClearKeyboardFocus(EKeyboardFocusCause::SetDirectly);
+	FSlateApplication::Get().SetKeyboardFocus(CurrentFocus);
+
+	//FSlateApplication::Get().SetFocusToGameViewport(); // set the players focus back to the gameport
 }
 
 void SChatWidget::AddMessage(const FSChatMsg& newmessage) // this function is the last in line and does the actual placing of the message
