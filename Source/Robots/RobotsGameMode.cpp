@@ -7,6 +7,7 @@
 #include "RobotPlayerState.h"
 #include "Engine.h"
 #include "ChatWidget.h"
+#include "RobotGameState.h"
 
 
 ARobotsGameMode::ARobotsGameMode()
@@ -19,14 +20,20 @@ ARobotsGameMode::ARobotsGameMode()
 	HUDClass = ARobotsHUD::StaticClass();
 	PlayerStateClass = ARobotPlayerState::StaticClass();
 
+	GameStateClass = ARobotGameState::StaticClass();
+
+	restarting = false;
+
 
 
 }
 void ARobotsGameMode::RestartLevel(float delay) {
+	restarting = true;
 	FTimerHandle UnusedHandle;
 	SendServerMessage(FText::FromString("Restarting!"));
 	GetWorldTimerManager().SetTimer(
 		UnusedHandle, this, &ARobotsGameMode::RestartLevel, delay, false);
+	restarting = false;
 }
 
 void ARobotsGameMode::RestartLevel() {
@@ -34,7 +41,13 @@ void ARobotsGameMode::RestartLevel() {
 }
 
 void ARobotsGameMode::PlayerDeath() {
+
 	SendServerMessage(FText::FromString("Player Death!"));
+
+	if (restarting) {
+		return;
+	}
+
 
 	int32 aliveCount = 0;
 	for (TObjectIterator<ARobotCharacter> Itr; Itr; ++Itr)
@@ -54,21 +67,23 @@ void ARobotsGameMode::PlayerDeath() {
 }
 
 void ARobotsGameMode::SendServerMessage(FText text) {
-	FSChatMsg newmessage;
-	newmessage.Init(2, FText::FromString("SERVER"), text); // initialize our struct and prep the message
+	ARobotGameState* gs = Cast<ARobotGameState> (GetWorld()->GetGameState());
+	gs->SendServerMessage(text);
+	//FSChatMsg newmessage;
+	//newmessage.Init(2, FText::FromString("SERVER"), text); // initialize our struct and prep the message
 
-	APlayerController* MyCon;
-	ARobotsHUD* MyHud;
+	//APlayerController* MyCon;
+	//ARobotsHUD* MyHud;
 
-	for (FConstPlayerControllerIterator Iterator = GetWorld()->GetPlayerControllerIterator(); Iterator; ++Iterator) // find all controllers
-	{
-		MyCon = Cast<APlayerController>(*Iterator);
-		if (MyCon)
-		{
-			MyHud = Cast<ARobotsHUD>(MyCon->GetHUD());
-			if (MyHud && MyHud->MyUIWidget.IsValid()) {
-				MyHud->MyUIWidget->AddMessage(newmessage); // place the chat message on this player controller
-			}
-		}
-	}
+	//for (FConstPlayerControllerIterator Iterator = GetWorld()->GetPlayerControllerIterator(); Iterator; ++Iterator) // find all controllers
+	//{
+	//	MyCon = Cast<APlayerController>(*Iterator);
+	//	if (MyCon)
+	//	{
+	//		MyHud = Cast<ARobotsHUD>(MyCon->GetHUD());
+	//		if (MyHud && MyHud->MyUIWidget.IsValid()) {
+	//			MyHud->MyUIWidget->AddMessage(newmessage); // place the chat message on this player controller
+	//		}
+	//	}
+	//}
 }

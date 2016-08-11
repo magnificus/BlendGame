@@ -93,14 +93,14 @@ void ARobotCharacter::SetupPlayerInputComponent(class UInputComponent* InputComp
 }
 
 void ARobotCharacter::RestartPressed() {
+	if (Role < ROLE_Authority) {
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, "Not host, not allowed to restart");
+		return;
+	}
 	APlayerController* controller = (APlayerController*) GetController();
 	ARobotsGameMode* g = (ARobotsGameMode*)GetWorld()->GetAuthGameMode();
 	g->RestartLevel(1);
 }
-
-//void ARobotCharacter::ToLobbyPressed() {
-//	APlayerController* controller
-//}
 
 
 // sprinting

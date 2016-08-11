@@ -10,6 +10,9 @@ class ARobotsGameMode : public AGameMode
 
 public:
 	ARobotsGameMode();
+
+	bool restarting;
+
 	void RestartLevel(float delay);
 	void RestartLevel();
 

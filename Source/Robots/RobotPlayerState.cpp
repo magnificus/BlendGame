@@ -39,3 +39,8 @@ void ARobotPlayerState::UserChat_Implementation(const FSChatMsg& newmessage)
 		}
 	}
 }
+
+void ARobotPlayerState::SetName(FString newName) {
+	SetPlayerName(newName);
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, PlayerName);
+}

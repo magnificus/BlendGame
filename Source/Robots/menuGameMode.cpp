@@ -2,7 +2,7 @@
 
 #include "Robots.h"
 #include "menuGameMode.h"
-
+#include "RobotPlayerState.h"
 
 
 AmenuGameMode::AmenuGameMode()
@@ -14,6 +14,9 @@ AmenuGameMode::AmenuGameMode()
 
 	static ConstructorHelpers::FClassFinder<APlayerController> PlayerControllerClassFinder(TEXT("/Game/robotdude/RobotControllerBP"));
 	PlayerControllerClass = PlayerControllerClassFinder.Class;
+
+	PlayerStateClass = ARobotPlayerState::StaticClass();
+
 
 }
 

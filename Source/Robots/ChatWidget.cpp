@@ -159,6 +159,7 @@ void SChatWidget::OnChatTextCommitted(const FText& InText, ETextCommit::Type Com
 				newmessage.Init(1, FText::FromString(MyPS->PlayerName), NFText); // initialize the message struct for replication
 				if (newmessage.Type > 0)
 					MyPS->UserChatRPC(newmessage); // Send the complete chat message to the PlayerState so it can be replicated then displayed
+
 			}
 		}
 		ChatInput->SetText(FText()); // clear the chat box now were done with it
