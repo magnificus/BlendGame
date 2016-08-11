@@ -36,7 +36,7 @@ void AmenuGameMode::ExecuteFunction(FString parameter)
 
 void AmenuGameMode::HostGame()
 {
-	GetWorld()->ServerTravel("/Game/maps/lobbyLevel?Listen", true);
+	GetWorld()->ServerTravel("/Game/maps/lab?Listen", true);
 }
 
 

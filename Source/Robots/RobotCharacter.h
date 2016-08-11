@@ -58,13 +58,24 @@ public:
 
 	// ispunching
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Gameplay, Replicated)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Animation, Replicated)
 		bool isPunching;
 	void SetIsPunching(bool newIsPunching);
 	UFUNCTION(Reliable, Server, WithValidation)
 	void ServerSetIsPunching(bool newIsPunching);
 	virtual void ServerSetIsPunching_Implementation(bool newIsPunching);
 	virtual bool ServerSetIsPunching_Validate(bool newIsPunching);
+
+	// isAiming
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Animation, Replicated)
+		bool isAiming;
+	void SetIsAiming(bool newisAiming);
+	UFUNCTION(Reliable, Server, WithValidation)
+		void ServerSetIsAiming(bool newIsAiming);
+	virtual void ServerSetIsAiming_Implementation(bool newIsAiming);
+	virtual bool ServerSetIsAiming_Validate(bool newIsAiming);
+
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
@@ -78,6 +89,9 @@ public:
 	//void changeMaxSpeedTo(float newSpeed);
 	UFUNCTION(BlueprintCallable, Category = "Gameplay")
 	void SetIsPunchingFromBP(bool punch);
+
+	UFUNCTION(BlueprintCallable, Category = "Gameplay")
+	void SetIsAimingFromBP(bool aim);
 
 
 

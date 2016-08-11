@@ -37,7 +37,8 @@ void ARobotsGameMode::RestartLevel(float delay) {
 }
 
 void ARobotsGameMode::RestartLevel() {
-	GetWorld()->ServerTravel("/Game/maps/house?Listen");
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, GetWorld()->GetMapName());
+	GetWorld()->ServerTravel("/Game/maps/lab?Listen");
 }
 
 void ARobotsGameMode::PlayerDeath() {

@@ -153,6 +153,28 @@ void ARobotCharacter::SetIsPunchingFromBP(bool newIsPunching) {
 	SetIsPunching(newIsPunching);
 }
 
+// aiming
+
+void ARobotCharacter::SetIsAiming(bool newIsAiming) {
+	isAiming = newIsAiming;
+	if (Role < ROLE_Authority) {
+		ServerSetIsAiming(newIsAiming);
+	}
+}
+
+
+bool ARobotCharacter::ServerSetIsAiming_Validate(bool newIsAiming) {
+	return true;
+}
+
+void ARobotCharacter::ServerSetIsAiming_Implementation(bool newIsAiming) {
+	SetIsAiming(newIsAiming);
+}
+
+void ARobotCharacter::SetIsAimingFromBP(bool newIsAiming) {
+	SetIsAiming(newIsAiming);
+}
+
 // alive
 
 void ARobotCharacter::SetIsAlive(bool newIsAlive) {
