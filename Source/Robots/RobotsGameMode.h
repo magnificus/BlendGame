@@ -11,6 +11,11 @@ class ARobotsGameMode : public AGameMode
 public:
 	ARobotsGameMode();
 
+	UFUNCTION()
+		void K2_PostLogin();
+
+
+
 	bool restarting;
 
 	void RestartLevel(float delay);

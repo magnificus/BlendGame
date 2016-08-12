@@ -27,6 +27,10 @@ ARobotsGameMode::ARobotsGameMode()
 
 
 }
+void ARobotsGameMode::K2_PostLogin()
+{
+	SenServerMessage("Player Connected!");
+}
 void ARobotsGameMode::RestartLevel(float delay) {
 	restarting = true;
 	FTimerHandle UnusedHandle;
@@ -70,21 +74,4 @@ void ARobotsGameMode::PlayerDeath() {
 void ARobotsGameMode::SendServerMessage(FText text) {
 	ARobotGameState* gs = Cast<ARobotGameState> (GetWorld()->GetGameState());
 	gs->SendServerMessage(text);
-	//FSChatMsg newmessage;
-	//newmessage.Init(2, FText::FromString("SERVER"), text); // initialize our struct and prep the message
-
-	//APlayerController* MyCon;
-	//ARobotsHUD* MyHud;
-
-	//for (FConstPlayerControllerIterator Iterator = GetWorld()->GetPlayerControllerIterator(); Iterator; ++Iterator) // find all controllers
-	//{
-	//	MyCon = Cast<APlayerController>(*Iterator);
-	//	if (MyCon)
-	//	{
-	//		MyHud = Cast<ARobotsHUD>(MyCon->GetHUD());
-	//		if (MyHud && MyHud->MyUIWidget.IsValid()) {
-	//			MyHud->MyUIWidget->AddMessage(newmessage); // place the chat message on this player controller
-	//		}
-	//	}
-	//}
 }

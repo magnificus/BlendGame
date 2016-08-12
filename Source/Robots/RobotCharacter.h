@@ -93,7 +93,11 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Gameplay")
 	void SetIsAimingFromBP(bool aim);
 
+	UFUNCTION(Reliable, Server, WithValidation)
+	void Activate();
 
+	UFUNCTION(Reliable, Server, WithValidation)
+	void FireLaser();
 
 
 protected:
@@ -129,6 +133,7 @@ protected:
 	void SprintReleased();
 	
 	void RestartPressed();
+
 
 
 

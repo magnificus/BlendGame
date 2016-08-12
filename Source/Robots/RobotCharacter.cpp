@@ -82,6 +82,9 @@ void ARobotCharacter::SetupPlayerInputComponent(class UInputComponent* InputComp
 	InputComponent->BindAxis("LookUpRate", this, &ARobotCharacter::LookUpAtRate);
 
 	InputComponent->BindAction("Start Game", IE_Pressed, this, &ARobotCharacter::RestartPressed);
+	InputComponent->BindAction("Activate", IE_Pressed, this, &ARobotCharacter::Activate);
+
+	InputComponent->BindAction("Laser", IE_Pressed, this, &ARobotCharacter::FireLaser);
 
 
 	// handle touch devices
