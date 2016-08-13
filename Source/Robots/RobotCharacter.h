@@ -83,7 +83,8 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Animation, Replicated)
 		bool canLaser;
-	void SetCanLaser(bool newCanLaser);
+	UFUNCTION(BlueprintCallable, Category = "Gameplay")
+		void SetCanLaser(bool newCanLaser);
 	UFUNCTION(Reliable, Server, WithValidation)
 		void ServerSetCanLaser(bool newCanLaser);
 	virtual void ServerSetCanLaser_Implementation(bool newCanLaser);

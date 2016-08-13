@@ -14,6 +14,11 @@ void ARobotsGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
+	//if (playerHUDClass != nullptr) {
+	//	widgetInstance = CreateWidget<UUSerWidget>(GetWorld(), playerHUDClass);
+	//	if (widgetInstance != nullptr)
+	//		widgetInstance->AddToViewport();
+	//}
 
 }
 

@@ -29,10 +29,10 @@ public:
 
 
 
-	//UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
-	//TSubclassOf<class UUserWidget> playerHUDClass;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
+	TSubclassOf<class UUserWidget> playerHUDClass;
 
-	//class UUSerWidget* widgetInstance;
+	class UUSerWidget* widgetInstance;
 };
 
 
