@@ -25,6 +25,8 @@ class ARobotCharacter : public ACharacter
 public:
 	ARobotCharacter();
 
+	virtual void Tick(float DeltaTime) override;
+
 	// alive
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Gameplay, Replicated)
 		bool alive;
@@ -77,6 +79,17 @@ public:
 	virtual bool ServerSetIsAiming_Validate(bool newIsAiming);
 
 
+	// canLaser
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Animation, Replicated)
+		bool canLaser;
+	void SetCanLaser(bool newCanLaser);
+	UFUNCTION(Reliable, Server, WithValidation)
+		void ServerSetCanLaser(bool newCanLaser);
+	virtual void ServerSetCanLaser_Implementation(bool newCanLaser);
+	virtual bool ServerSetCanLaser_Validate(bool newCanLaser);
+
+
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 		float BaseTurnRate;
@@ -93,11 +106,11 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Gameplay")
 	void SetIsAimingFromBP(bool aim);
 
-	UFUNCTION(Reliable, Server, WithValidation)
-	void Activate();
+	//UFUNCTION(Reliable, Server, WithValidation)
+	//void Activate();
 
-	UFUNCTION(Reliable, Server, WithValidation)
-	void FireLaser();
+	//UFUNCTION(Reliable, Server, WithValidation)
+	//void FireLaser();
 
 
 protected:

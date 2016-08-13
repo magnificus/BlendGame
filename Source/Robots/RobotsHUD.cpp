@@ -36,6 +36,8 @@ void ARobotsHUD::DrawHUD()
 	if (MyPC->WasInputKeyJustPressed(EKeys::Enter))
 		if (MyUIWidget.IsValid() && MyUIWidget->ChatInput.IsValid())
 			FSlateApplication::Get().SetKeyboardFocus(MyUIWidget->ChatInput); // When the user presses Enter he will focus his keypresses on the chat input bar
+
+
 }
 
 void ARobotsHUD::AddMessageBP(const int32 Type, const FString& Username, const FString& Text, const bool Replicate)

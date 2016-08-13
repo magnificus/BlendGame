@@ -82,9 +82,10 @@ void ARobotCharacter::SetupPlayerInputComponent(class UInputComponent* InputComp
 	InputComponent->BindAxis("LookUpRate", this, &ARobotCharacter::LookUpAtRate);
 
 	InputComponent->BindAction("Start Game", IE_Pressed, this, &ARobotCharacter::RestartPressed);
-	InputComponent->BindAction("Activate", IE_Pressed, this, &ARobotCharacter::Activate);
 
-	InputComponent->BindAction("Laser", IE_Pressed, this, &ARobotCharacter::FireLaser);
+
+	//InputComponent->BindAction("Activate", IE_Pressed, this, &ARobotCharacter::Activate);
+	//InputComponent->BindAction("Laser", IE_Pressed, this, &ARobotCharacter::FireLaser);
 
 
 	// handle touch devices
@@ -178,6 +179,24 @@ void ARobotCharacter::SetIsAimingFromBP(bool newIsAiming) {
 	SetIsAiming(newIsAiming);
 }
 
+// laser
+
+void ARobotCharacter::SetCanLaser(bool newCanLaser) {
+	canLaser = newCanLaser;
+	if (Role < ROLE_Authority) {
+		ServerSetCanLaser(newCanLaser);
+	}
+}
+
+
+bool ARobotCharacter::ServerSetCanLaser_Validate(bool newCanLaser) {
+	return true;
+}
+
+void ARobotCharacter::ServerSetCanLaser_Implementation(bool newCanLaser) {
+	SetIsAiming(newCanLaser);
+}
+
 // alive
 
 void ARobotCharacter::SetIsAlive(bool newIsAlive) {
@@ -233,9 +252,6 @@ bool ARobotCharacter::ServerSetHealth_Validate(float health)
 
 void ARobotCharacter::ServerSetHealth_Implementation(float newHealth)
 {
-	// This function is only called on the server (where Role == ROLE_Authority), called over the network by clients.
-	// We need to call SetSomeBool() to actually change the value of the bool now!
-	// Inside that function, Role == ROLE_Authority, so it won't try to call ServerSetSomeBool() again.
 	SetHealth(newHealth);
 }
 
@@ -307,4 +323,9 @@ void ARobotCharacter::MoveRight(float Value)
 		// add movement in that direction
 		AddMovementInput(Direction, Value);
 	}
+}
+
+
+void ARobotCharacter::Tick(float deltaTime) {
+	Super::Tick(deltaTime);
 }

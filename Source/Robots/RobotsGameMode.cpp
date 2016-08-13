@@ -10,6 +10,13 @@
 #include "RobotGameState.h"
 
 
+void ARobotsGameMode::BeginPlay()
+{
+	Super::BeginPlay();
+
+
+}
+
 ARobotsGameMode::ARobotsGameMode()
 	: Super()
 {
@@ -29,7 +36,7 @@ ARobotsGameMode::ARobotsGameMode()
 }
 void ARobotsGameMode::K2_PostLogin()
 {
-	SenServerMessage("Player Connected!");
+	SendServerMessage(FText::FromString("Player Connected!"));
 }
 void ARobotsGameMode::RestartLevel(float delay) {
 	restarting = true;
