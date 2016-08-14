@@ -8,17 +8,14 @@
 #include "Engine.h"
 #include "ChatWidget.h"
 #include "RobotGameState.h"
-
+#include "Blueprint/UserWidget.h"
+#include "RobotController.h"
 
 void ARobotsGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//if (playerHUDClass != nullptr) {
-	//	widgetInstance = CreateWidget<UUSerWidget>(GetWorld(), playerHUDClass);
-	//	if (widgetInstance != nullptr)
-	//		widgetInstance->AddToViewport();
-	//}
+
 
 }
 
@@ -33,6 +30,7 @@ ARobotsGameMode::ARobotsGameMode()
 	PlayerStateClass = ARobotPlayerState::StaticClass();
 
 	GameStateClass = ARobotGameState::StaticClass();
+	PlayerControllerClass = ARobotController::StaticClass();
 
 	restarting = false;
 

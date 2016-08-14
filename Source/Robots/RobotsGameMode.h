@@ -25,13 +25,16 @@ public:
 	void RestartLevel();
 
 	void PlayerDeath();
-	void SendServerMessage(FText message);
+
+	UFUNCTION(BlueprintCallable, Category = "Gameplay")
+		void SendServerMessage(FText message);
 
 
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI", Meta = (BlueprintProtected = "true"))
 	TSubclassOf<class UUserWidget> playerHUDClass;
 
+	UPROPERTY()
 	class UUSerWidget* widgetInstance;
 };
 

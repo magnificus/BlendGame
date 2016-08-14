@@ -65,6 +65,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "User")
 		void AddMessageBP(const int32 Type, const FString& Username, const FString& Text, const bool Replicate); // A Blueprint function you can use to place messages in the chat box during runtime
 
+	UPROPERTY()
+		UFont* HUDFont;
 protected:
 
 	virtual void PostInitializeComponents() override; // All game elements are created, add our chat box
