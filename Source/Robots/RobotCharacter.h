@@ -81,7 +81,7 @@ public:
 
 	// canLaser
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Gameplay, Replicated)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Gameplay, Replicated)
 		bool canLaser;
 	UFUNCTION(BlueprintCallable, Category = "Gameplay")
 		void SetCanLaser(bool newCanLaser);
@@ -92,7 +92,7 @@ public:
 
 	// canAssimilate
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Gameplay, Replicated)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Gameplay, Replicated)
 		bool canAssimilate;
 	UFUNCTION(BlueprintCallable, Category = "Gameplay")
 		void SetCanAssimilate(bool newCanAssimilate);
@@ -104,7 +104,7 @@ public:
 
 	// canReveal
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Gameplay, Replicated)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Gameplay, Replicated)
 		bool canReveal;
 	UFUNCTION(BlueprintCallable, Category = "Gameplay")
 		void SetCanReveal(bool newParam);

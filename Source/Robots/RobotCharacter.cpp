@@ -248,7 +248,6 @@ void ARobotCharacter::SetIsAlive(bool newIsAlive) {
 	}
 
 	if (!alive) {
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, "Player Death!");
 		ARobotsGameMode* g = (ARobotsGameMode*)GetWorld()->GetAuthGameMode();
 		g->PlayerDeath();
 	}
