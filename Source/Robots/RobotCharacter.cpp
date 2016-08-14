@@ -51,6 +51,10 @@ ARobotCharacter::ARobotCharacter()
 
 	isPunching = false;
 	alive = true;
+
+	canLaser = false;
+	canAssimilate = false;
+	canActivate = false;
 	health = 100;
 }
 
@@ -159,25 +163,25 @@ void ARobotCharacter::SetIsPunchingFromBP(bool newIsPunching) {
 
 // aiming
 
-void ARobotCharacter::SetIsAiming(bool newIsAiming) {
-	isAiming = newIsAiming;
-	if (Role < ROLE_Authority) {
-		ServerSetIsAiming(newIsAiming);
-	}
-}
-
-
-bool ARobotCharacter::ServerSetIsAiming_Validate(bool newIsAiming) {
-	return true;
-}
-
-void ARobotCharacter::ServerSetIsAiming_Implementation(bool newIsAiming) {
-	SetIsAiming(newIsAiming);
-}
-
-void ARobotCharacter::SetIsAimingFromBP(bool newIsAiming) {
-	SetIsAiming(newIsAiming);
-}
+//void ARobotCharacter::SetIsAiming(bool newIsAiming) {
+//	isAiming = newIsAiming;
+//	if (Role < ROLE_Authority) {
+//		ServerSetIsAiming(newIsAiming);
+//	}
+//}
+//
+//
+//bool ARobotCharacter::ServerSetIsAiming_Validate(bool newIsAiming) {
+//	return true;
+//}
+//
+//void ARobotCharacter::ServerSetIsAiming_Implementation(bool newIsAiming) {
+//	SetIsAiming(newIsAiming);
+//}
+//
+//void ARobotCharacter::SetIsAimingFromBP(bool newIsAiming) {
+//	SetIsAiming(newIsAiming);
+//}
 
 // laser
 
@@ -194,8 +198,45 @@ bool ARobotCharacter::ServerSetCanLaser_Validate(bool newCanLaser) {
 }
 
 void ARobotCharacter::ServerSetCanLaser_Implementation(bool newCanLaser) {
-	SetIsAiming(newCanLaser);
+	SetCanLaser(newCanLaser);
 }
+
+// assimilate
+
+void ARobotCharacter::SetCanAssimilate(bool newParam) {
+	canAssimilate = newParam;
+	if (Role < ROLE_Authority) {
+		ServerSetCanAssimilate(newParam);
+	}
+}
+
+
+bool ARobotCharacter::ServerSetCanAssimilate_Validate(bool newParam) {
+	return true;
+}
+
+void ARobotCharacter::ServerSetCanAssimilate_Implementation(bool newParam) {
+	SetCanAssimilate(newParam);
+}
+
+// reveal
+
+void ARobotCharacter::SetCanReveal(bool newParam) {
+	canReveal = newParam;
+	if (Role < ROLE_Authority) {
+		ServerSetCanReveal(newParam);
+	}
+}
+
+
+bool ARobotCharacter::ServerSetCanReveal_Validate(bool newParam) {
+	return true;
+}
+
+void ARobotCharacter::ServerSetCanReveal_Implementation(bool newParam) {
+	SetCanReveal(newParam);
+}
+
 
 // alive
 
@@ -234,11 +275,8 @@ void ARobotCharacter::FireReleased() {
 
 void ARobotCharacter::SetHealth(float newHealth)
 {
-	// Change the value of the bSomeBool property
 	health = newHealth;
 
-	// If this next check succeeds, we are *not* the authority, meaning we are a network client.
-	// In this case we also want to call the server function to tell it to change the bSomeBool property as well.
 	if (Role < ROLE_Authority)
 	{
 		ServerSetHealth(newHealth);
@@ -254,6 +292,7 @@ void ARobotCharacter::ServerSetHealth_Implementation(float newHealth)
 {
 	SetHealth(newHealth);
 }
+
 
 
 void ARobotCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const

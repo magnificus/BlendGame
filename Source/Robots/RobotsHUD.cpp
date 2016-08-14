@@ -47,9 +47,16 @@ void ARobotsHUD::DrawHUD()
 	FVector2D ScreenDimensions = FVector2D(Canvas->SizeX, Canvas->SizeY);
 	ARobotCharacter* myChar = Cast<ARobotCharacter>(UGameplayStatics::GetPlayerPawn(this, 0));
 
-	if (myChar->canLaser)
-		DrawText("Laser Avaliable (F)", FColor::White, 50, 50, HUDFont);
-
+	if (myChar) {
+		if (myChar->canLaser)
+			DrawText("Laser Avaliable (F)", FColor::White, 50, 50, HUDFont);
+		if (myChar->canAssimilate)
+			DrawText("Assimilate Available (G)", FColor::White, 50, 80, HUDFont);
+		if (myChar->canReveal)
+			DrawText("Reveal Available (H)", FColor::White, 50, 110, HUDFont);
+		if (myChar->canActivate)
+			DrawText("Activate (E)", FColor::White, ScreenDimensions.X / 2, ScreenDimensions.Y / 2);
+	}
 
 
 }

@@ -70,18 +70,18 @@ public:
 
 	// isAiming
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Animation, Replicated)
-		bool isAiming;
-	void SetIsAiming(bool newisAiming);
-	UFUNCTION(Reliable, Server, WithValidation)
-		void ServerSetIsAiming(bool newIsAiming);
-	virtual void ServerSetIsAiming_Implementation(bool newIsAiming);
-	virtual bool ServerSetIsAiming_Validate(bool newIsAiming);
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Animation, Replicated)
+	//	bool isAiming;
+	//void SetIsAiming(bool newisAiming);
+	//UFUNCTION(Reliable, Server, WithValidation)
+	//	void ServerSetIsAiming(bool newIsAiming);
+	//virtual void ServerSetIsAiming_Implementation(bool newIsAiming);
+	//virtual bool ServerSetIsAiming_Validate(bool newIsAiming);
 
 
 	// canLaser
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Animation, Replicated)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Gameplay, Replicated)
 		bool canLaser;
 	UFUNCTION(BlueprintCallable, Category = "Gameplay")
 		void SetCanLaser(bool newCanLaser);
@@ -89,6 +89,29 @@ public:
 		void ServerSetCanLaser(bool newCanLaser);
 	virtual void ServerSetCanLaser_Implementation(bool newCanLaser);
 	virtual bool ServerSetCanLaser_Validate(bool newCanLaser);
+
+	// canAssimilate
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Gameplay, Replicated)
+		bool canAssimilate;
+	UFUNCTION(BlueprintCallable, Category = "Gameplay")
+		void SetCanAssimilate(bool newCanAssimilate);
+	UFUNCTION(Reliable, Server, WithValidation)
+		void ServerSetCanAssimilate(bool newCanAssimilate);
+	virtual void ServerSetCanAssimilate_Implementation(bool newCanAssimilate);
+	virtual bool ServerSetCanAssimilate_Validate(bool newCanAssimilate);
+
+
+	// canReveal
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Gameplay, Replicated)
+		bool canReveal;
+	UFUNCTION(BlueprintCallable, Category = "Gameplay")
+		void SetCanReveal(bool newParam);
+	UFUNCTION(Reliable, Server, WithValidation)
+		void ServerSetCanReveal(bool newParam);
+	virtual void ServerSetCanReveal_Implementation(bool newParam);
+	virtual bool ServerSetCanReveal_Validate(bool newParam);
 
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
@@ -99,19 +122,15 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 		float BaseLookUpRate;
 
-	//UFUNCTION(Reliable, Server, WithValidation)
-	//void changeMaxSpeedTo(float newSpeed);
 	UFUNCTION(BlueprintCallable, Category = "Gameplay")
 	void SetIsPunchingFromBP(bool punch);
 
-	UFUNCTION(BlueprintCallable, Category = "Gameplay")
-	void SetIsAimingFromBP(bool aim);
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = UI)
+		bool canActivate;
 
-	//UFUNCTION(Reliable, Server, WithValidation)
-	//void Activate();
+	//UFUNCTION(BlueprintCallable, Category = "Gameplay")
+	//void SetIsAimingFromBP(bool aim);
 
-	//UFUNCTION(Reliable, Server, WithValidation)
-	//void FireLaser();
 
 
 protected:
