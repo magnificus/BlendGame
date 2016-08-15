@@ -68,16 +68,6 @@ public:
 	virtual void ServerSetIsPunching_Implementation(bool newIsPunching);
 	virtual bool ServerSetIsPunching_Validate(bool newIsPunching);
 
-	// isAiming
-
-	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Animation, Replicated)
-	//	bool isAiming;
-	//void SetIsAiming(bool newisAiming);
-	//UFUNCTION(Reliable, Server, WithValidation)
-	//	void ServerSetIsAiming(bool newIsAiming);
-	//virtual void ServerSetIsAiming_Implementation(bool newIsAiming);
-	//virtual bool ServerSetIsAiming_Validate(bool newIsAiming);
-
 
 	// canLaser
 
@@ -128,8 +118,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = UI)
 		bool canActivate;
 
-	//UFUNCTION(BlueprintCallable, Category = "Gameplay")
-	//void SetIsAimingFromBP(bool aim);
+	UFUNCTION(BlueprintCallable, Category = Gameplay)
+		AActor* getActorInFront();
 
 
 
@@ -166,6 +156,11 @@ protected:
 	void SprintReleased();
 	
 	void RestartPressed();
+
+	UFUNCTION(Server, Reliable, WithValidation)
+		void Activate();
+	virtual void Activate_Implementation();
+	virtual bool Activate_Validate();
 
 
 

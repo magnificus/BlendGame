@@ -5,6 +5,7 @@
 #include "UnrealNetwork.h"
 #include "Engine.h"
 #include "RobotsGameMode.h"
+#include "Capsule.h"
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -87,6 +88,8 @@ void ARobotCharacter::SetupPlayerInputComponent(class UInputComponent* InputComp
 
 	InputComponent->BindAction("Start Game", IE_Pressed, this, &ARobotCharacter::RestartPressed);
 
+	InputComponent->BindAction("Activate", IE_Pressed, this, &ARobotCharacter::Activate);
+
 
 	//InputComponent->BindAction("Activate", IE_Pressed, this, &ARobotCharacter::Activate);
 	//InputComponent->BindAction("Laser", IE_Pressed, this, &ARobotCharacter::FireLaser);
@@ -105,7 +108,7 @@ void ARobotCharacter::RestartPressed() {
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, "Not host, not allowed to restart");
 		return;
 	}
-	APlayerController* controller = (APlayerController*) GetController();
+	APlayerController* controller = (APlayerController*)GetController();
 	ARobotsGameMode* g = (ARobotsGameMode*)GetWorld()->GetAuthGameMode();
 	g->RestartLevel(1);
 }
@@ -302,6 +305,10 @@ void ARobotCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 	DOREPLIFETIME(ARobotCharacter, health);
 	DOREPLIFETIME(ARobotCharacter, speed);
 	DOREPLIFETIME(ARobotCharacter, alive);
+	DOREPLIFETIME(ARobotCharacter, canLaser);
+	DOREPLIFETIME(ARobotCharacter, canAssimilate);
+	DOREPLIFETIME(ARobotCharacter, canReveal);
+
 }
 
 void ARobotCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
@@ -366,4 +373,62 @@ void ARobotCharacter::MoveRight(float Value)
 
 void ARobotCharacter::Tick(float deltaTime) {
 	Super::Tick(deltaTime);
+
+	AActor* hitActor = getActorInFront();
+	ACapsule* capsule = Cast<ACapsule>(hitActor);
+	if (capsule) {
+		canActivate = true;
+	}
+	else {
+		canActivate = false;
+	}
+
+}
+
+AActor* ARobotCharacter::getActorInFront() {
+	FVector Start = GetActorLocation() + FVector(0, 0, 64);
+	FVector End = Start + FollowCamera->GetForwardVector() * 130;
+
+	FCollisionQueryParams RV_TraceParams = FCollisionQueryParams(FName(TEXT("RV_Trace")), true, this);
+	RV_TraceParams.bTraceComplex = true;
+	RV_TraceParams.bTraceAsyncScene = true;
+	RV_TraceParams.bReturnPhysicalMaterial = false;
+
+	//Re-initialize hit info
+	FHitResult RV_Hit(ForceInit);
+
+	//call GetWorld() from within an actor extending class
+	GetWorld()->LineTraceSingleByChannel(
+		RV_Hit,        //result
+		Start,    //start
+		End, //end
+		ECC_Pawn, //collision channel
+		RV_TraceParams
+	);
+
+	return RV_Hit.GetActor();
+}
+
+void ARobotCharacter::Activate_Implementation() {
+	AActor* actor = getActorInFront();
+	ACapsule* c = Cast<ACapsule>(actor);
+	if (c) {
+		EPowerUp e = c->GetPowerUp();
+		if (e == EPowerUp::P_LASER) {
+			SetCanLaser(true);
+		}
+		else if (e == EPowerUp::P_ASSIMILATE) {
+			SetCanAssimilate(true);
+		}
+		else if (e == EPowerUp::P_REVEAL) {
+			SetCanReveal(true);
+		}
+
+		c->Destroy();
+
+	}
+}
+
+bool ARobotCharacter::Activate_Validate() {
+	return true;
 }
