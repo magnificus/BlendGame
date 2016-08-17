@@ -25,7 +25,7 @@ public:
 	void ExecuteFunction(FString parameter);
 
 	UFUNCTION(BlueprintCallable, Category = "Gameplay")
-	void HostGame();
+	void HostGame(FString name);
 	
 	UFUNCTION(BlueprintCallable, Category = "Gameplay")
 	void JoinGame(FString address);

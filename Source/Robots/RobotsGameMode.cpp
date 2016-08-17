@@ -50,9 +50,17 @@ void ARobotsGameMode::RestartLevel(float delay) {
 	restarting = false;
 }
 
+void ARobotsGameMode::EnterLevel(FString name) {
+	GetWorld()->ServerTravel("/Game/maps/" + name + "?Listen");
+}
+
 void ARobotsGameMode::RestartLevel() {
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, GetWorld()->GetName());
 	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, GetWorld()->GetMapName());
-	GetWorld()->ServerTravel("/Game/maps/lab?Listen");
+	EnterLevel(GetWorld()->GetName());
+	//GetWorld()->ServerTravel("/Game/maps/" + GetWorld()->GetName()  + "?Listen");
+
+	//GetWorld()->ServerTravel(FString(*GetWorld()->GetName()));
 }
 
 void ARobotsGameMode::PlayerDeath() {

@@ -2,7 +2,7 @@
 	"TargetName" : "RobotsEditor",
 	"Platform" : "Win64",
 	"Configuration" : "Development",
-	"BuildId" : "e33538f6-276e-4ffe-ab14-4e3bcbc96fc4",
+	"BuildId" : "b43f5d15-2956-4175-91db-55a5aba578c3",
 	"Version" : 
 	{
 		"MajorVersion" : 4,
@@ -15,15 +15,15 @@
 	"BuildProducts" :
 	[
 		{
-			"Path" : "$(ProjectDir)/Binaries/Win64/UE4Editor-Robots-7446.dll",
+			"Path" : "$(ProjectDir)/Binaries/Win64/UE4Editor-Robots-4036.dll",
 			"Type" : "DynamicLibrary"
 		},
 		{
-			"Path" : "$(ProjectDir)/Binaries/Win64/UE4Editor-Robots-7446.pdb",
+			"Path" : "$(ProjectDir)/Binaries/Win64/UE4Editor-Robots-4036.pdb",
 			"Type" : "SymbolFile"
 		},
 		{
-			"Path" : "$(ProjectDir)/Intermediate/Build/Win64/UE4Editor/Development/UE4Editor-Robots-7446.lib",
+			"Path" : "$(ProjectDir)/Intermediate/Build/Win64/UE4Editor/Development/UE4Editor-Robots-4036.lib",
 			"Type" : "ImportLibrary"
 		}
 	],

@@ -296,6 +296,27 @@ void ARobotCharacter::ServerSetHealth_Implementation(float newHealth)
 }
 
 
+void ARobotCharacter::SetCanBomb(bool newParam)
+{
+	canBomb = newParam;
+
+	if (Role < ROLE_Authority)
+	{
+		ServerSetCanBomb(newParam);
+	}
+}
+
+bool ARobotCharacter::ServerSetCanBomb_Validate(bool newParam)
+{
+	return true;
+}
+
+void ARobotCharacter::ServerSetCanBomb_Implementation(bool newParam)
+{
+	SetCanBomb(newParam);
+}
+
+
 
 void ARobotCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
@@ -308,6 +329,7 @@ void ARobotCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 	DOREPLIFETIME(ARobotCharacter, canLaser);
 	DOREPLIFETIME(ARobotCharacter, canAssimilate);
 	DOREPLIFETIME(ARobotCharacter, canReveal);
+	DOREPLIFETIME(ARobotCharacter, canBomb);
 
 }
 
@@ -423,6 +445,9 @@ void ARobotCharacter::Activate_Implementation() {
 		else if (e == EPowerUp::P_REVEAL) {
 			SetCanReveal(true);
 		}
+		else if (e == EPowerUp::P_BOMB) {
+			SetCanBomb(true);
+		}
 
 		c->Destroy();
 
@@ -431,4 +456,8 @@ void ARobotCharacter::Activate_Implementation() {
 
 bool ARobotCharacter::Activate_Validate() {
 	return true;
+}
+
+void ARobotCharacter::Exit() {
+
 }

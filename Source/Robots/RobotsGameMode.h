@@ -24,6 +24,9 @@ public:
 	void RestartLevel(float delay);
 	void RestartLevel();
 
+	UFUNCTION(BlueprintCallable, Category = Gameplay)
+	void EnterLevel(FString name);
+
 	void PlayerDeath();
 
 	UFUNCTION(BlueprintCallable, Category = "Gameplay")

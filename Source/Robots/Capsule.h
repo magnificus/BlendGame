@@ -11,10 +11,11 @@ enum class EPowerUp : uint8
 {
 	P_LASER 	UMETA(DisplayName = "Laser"),
 	P_ASSIMILATE 	UMETA(DisplayName = "Assimilate"),
-	P_REVEAL	UMETA(DisplayName = "Reveal")
+	P_REVEAL	UMETA(DisplayName = "Reveal"),
+	P_BOMB	UMETA(DisplayName = "BOMB")
 };
 
-const int32 EPowerUp_Count = 3;
+const int32 EPowerUp_Count = 4;
 
 UCLASS()
 class ROBOTS_API ACapsule : public AActor

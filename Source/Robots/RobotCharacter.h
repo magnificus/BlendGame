@@ -103,6 +103,18 @@ public:
 	virtual void ServerSetCanReveal_Implementation(bool newParam);
 	virtual bool ServerSetCanReveal_Validate(bool newParam);
 
+	// canBomb
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Gameplay, Replicated)
+		bool canBomb;
+	UFUNCTION(BlueprintCallable, Category = "Gameplay")
+		void SetCanBomb(bool newParam);
+	UFUNCTION(Reliable, Server, WithValidation)
+		void ServerSetCanBomb(bool newParam);
+	virtual void ServerSetCanBomb_Implementation(bool newParam);
+	virtual bool ServerSetCanBomb_Validate(bool newParam);
+
+
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
@@ -120,6 +132,8 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
 		AActor* getActorInFront();
+
+	void Exit();
 
 
 

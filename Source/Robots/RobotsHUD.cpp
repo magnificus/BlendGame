@@ -54,6 +54,8 @@ void ARobotsHUD::DrawHUD()
 			DrawText("Assimilate Available (G)", FColor::White, 50, 80, HUDFont);
 		if (myChar->canReveal)
 			DrawText("Reveal Available (H)", FColor::White, 50, 110, HUDFont);
+		if (myChar->canBomb)
+			DrawText("EMP Bomb Available (J)", FColor::White, 50, 140, HUDFont);
 		if (myChar->canActivate)
 			DrawText("Activate (E)", FColor::White, ScreenDimensions.X / 2, ScreenDimensions.Y / 2);
 	}
