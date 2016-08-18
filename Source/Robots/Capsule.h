@@ -12,7 +12,7 @@ enum class EPowerUp : uint8
 	P_LASER 	UMETA(DisplayName = "Laser"),
 	P_ASSIMILATE 	UMETA(DisplayName = "Assimilate"),
 	P_REVEAL	UMETA(DisplayName = "Reveal"),
-	P_BOMB	UMETA(DisplayName = "BOMB")
+	P_BOMB	UMETA(DisplayName = "Bomb")
 };
 
 const int32 EPowerUp_Count = 4;

@@ -18,9 +18,6 @@ class ROBOTS_API AmenuGameMode : public AGameMode
 public:
 	AmenuGameMode();
 
-
-
-
 	UFUNCTION(BlueprintCallable, Category = "Gameplay")
 	void ExecuteFunction(FString parameter);
 

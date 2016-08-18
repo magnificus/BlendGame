@@ -23,7 +23,7 @@ AmenuGameMode::AmenuGameMode()
 
 void AmenuGameMode::ExecuteFunction(FString parameter)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, parameter);
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, parameter);
 	if (parameter.Equals("host_lab")) {
 		HostGame("lab");
 	}
