@@ -4,6 +4,16 @@
 #include "RobotCharacter.generated.h"
 
 
+UENUM(BlueprintType)		//"BlueprintType" is essential to include
+enum class EAssignment : uint8
+{
+	FREE UMETA(DisplayName = "Free"),
+	REPAIR 	UMETA(DisplayName = "Repair"),
+	DUMP_WASTE 	UMETA(DisplayName = "Dump Waste"),
+	BUTTON_WATER	UMETA(DisplayName = "Manage Pool"),
+	CONTROL_PANEL	UMETA(DisplayName = "Enter Subroutine")
+};
+
 UCLASS(config = Game)
 class ARobotCharacter : public ACharacter
 {
