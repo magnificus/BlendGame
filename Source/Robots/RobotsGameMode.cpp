@@ -23,13 +23,12 @@ ARobotsGameMode::ARobotsGameMode()
 	: Super()
 {
 	// set default pawn class to our Blueprinted character
-	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnClassFinder(TEXT("/Game/robotdude/RobotChar"));
-	DefaultPawnClass = PlayerPawnClassFinder.Class;
-
-	HUDClass = ARobotsHUD::StaticClass();
-	PlayerStateClass = ARobotPlayerState::StaticClass();
-
-	GameStateClass = ARobotGameState::StaticClass();
+	//static ConstructorHelpers::FClassFinder<APawn> PlayerPawnClassFinder(TEXT("/Game/robotdude/RobotChar"));
+	//DefaultPawnClass = PlayerPawnClassFinder.Class;
+	//static ConstructorHelpers::FClassFinder<AHUD> HUDClassFinder(TEXT("/Game/RobotsHUDBP"));
+	//HUDClass = HUDClassFinder.Class;
+	//PlayerStateClass = ARobotPlayerState::StaticClass();
+	//GameStateClass = ARobotGameState::StaticClass();
 	PlayerControllerClass = ARobotController::StaticClass();
 
 	restarting = false;
@@ -55,12 +54,7 @@ void ARobotsGameMode::EnterLevel(FString name) {
 }
 
 void ARobotsGameMode::RestartLevel() {
-	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, GetWorld()->GetName());
-	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, GetWorld()->GetMapName());
 	EnterLevel(GetWorld()->GetName());
-	//GetWorld()->ServerTravel("/Game/maps/" + GetWorld()->GetName()  + "?Listen");
-
-	//GetWorld()->ServerTravel(FString(*GetWorld()->GetName()));
 }
 
 void ARobotsGameMode::PlayerDeath() {

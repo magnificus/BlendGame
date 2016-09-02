@@ -57,6 +57,7 @@ ARobotCharacter::ARobotCharacter()
 	canAssimilate = false;
 	canActivate = false;
 	health = 100;
+	standing = EStanding::GOOD;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -316,6 +317,27 @@ void ARobotCharacter::ServerSetCanBomb_Implementation(bool newParam)
 	SetCanBomb(newParam);
 }
 
+void ARobotCharacter::SetStanding(EStanding newParam)
+{
+	standing = newParam;
+
+	if (Role < ROLE_Authority)
+	{
+		ServerSetStanding(newParam);
+	}
+}
+
+bool ARobotCharacter::ServerSetStanding_Validate(EStanding newParam)
+{
+	return true;
+}
+
+void ARobotCharacter::ServerSetStanding_Implementation(EStanding newParam)
+{
+	SetStanding(newParam);
+}
+
+
 
 
 void ARobotCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -330,6 +352,7 @@ void ARobotCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 	DOREPLIFETIME(ARobotCharacter, canAssimilate);
 	DOREPLIFETIME(ARobotCharacter, canReveal);
 	DOREPLIFETIME(ARobotCharacter, canBomb);
+	DOREPLIFETIME(ARobotCharacter, standing);
 
 }
 

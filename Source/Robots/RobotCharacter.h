@@ -3,16 +3,14 @@
 #include "GameFramework/Character.h"
 #include "RobotCharacter.generated.h"
 
-
 UENUM(BlueprintType)		//"BlueprintType" is essential to include
-enum class EAssignment : uint8
+enum class EStanding : uint8
 {
-	FREE UMETA(DisplayName = "Free"),
-	REPAIR 	UMETA(DisplayName = "Repair"),
-	DUMP_WASTE 	UMETA(DisplayName = "Dump Waste"),
-	BUTTON_WATER	UMETA(DisplayName = "Manage Pool"),
-	CONTROL_PANEL	UMETA(DisplayName = "Enter Subroutine")
+	GOOD 	UMETA(DisplayName = "Good"),
+	SUSPECT 	UMETA(DisplayName = "Suspect"),
+	ROGUE	UMETA(DisplayName = "Rogue"),
 };
+
 
 UCLASS(config = Game)
 class ARobotCharacter : public ACharacter
@@ -124,6 +122,16 @@ public:
 	virtual void ServerSetCanBomb_Implementation(bool newParam);
 	virtual bool ServerSetCanBomb_Validate(bool newParam);
 
+	// standing
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Gameplay, Replicated)
+		EStanding standing;
+	UFUNCTION(BlueprintCallable, Category = "Gameplay")
+		void SetStanding(EStanding newParam);
+	UFUNCTION(Reliable, Server, WithValidation)
+		void ServerSetStanding(EStanding newParam);
+	virtual void ServerSetStanding_Implementation(EStanding newParam);
+	virtual bool ServerSetStanding_Validate(EStanding newParam);
 
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
