@@ -15,19 +15,42 @@ ACapsule::ACapsule()
 // Called when the game starts or when spawned
 void ACapsule::BeginPlay()
 {
-	Super::BeginPlay();
+	AActor::BeginPlay();
 	
 }
 
 // Called every frame
 void ACapsule::Tick( float DeltaTime )
 {
-	Super::Tick( DeltaTime );
+	AActor::Tick( DeltaTime );
 
 }
 
 EPowerUp ACapsule::GetPowerUp() {
 	return EPowerUp(FMath::Rand() % EPowerUp_Count);
+
+}
+
+FString ACapsule::GetName()
+{
+	return "Loot Box";
+}
+
+void ACapsule::Activate(ARobotCharacter* robot) {
+	EPowerUp e = GetPowerUp();
+	if (e == EPowerUp::P_LASER) {
+		robot->SetCanLaser(true);
+	}
+	else if (e == EPowerUp::P_ASSIMILATE) {
+		robot->SetCanAssimilate(true);
+	}
+	else if (e == EPowerUp::P_REVEAL) {
+		robot->SetCanReveal(true);
+	}
+	else if (e == EPowerUp::P_BOMB) {
+		robot->SetCanBomb(true);
+	}
+	Destroy();
 
 }
 

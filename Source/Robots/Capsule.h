@@ -3,6 +3,8 @@
 #pragma once
 
 #include "GameFramework/Actor.h"
+#include "Activatable.h"
+#include "RobotCharacter.h"
 #include "Capsule.generated.h"
 
 
@@ -18,10 +20,16 @@ enum class EPowerUp : uint8
 const int32 EPowerUp_Count = 4;
 
 UCLASS()
-class ROBOTS_API ACapsule : public AActor
+class ACapsule : public AActor, public IActivatable
 {
 	GENERATED_BODY()
-	
+
+	//void Activate(ARobotCharacter* robot);
+	UFUNCTION(BlueprintCallable, Category = "On Interact")
+	virtual FString GetName() override;
+	UFUNCTION(BlueprintCallable, Category = "Information")
+	virtual void Activate(ARobotCharacter* robot) override;
+
 public:	
 	// Sets default values for this actor's properties
 	ACapsule();
@@ -34,5 +42,6 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
 		EPowerUp GetPowerUp();
+
 	
 };

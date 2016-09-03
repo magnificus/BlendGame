@@ -5,7 +5,7 @@
 #include "UnrealNetwork.h"
 #include "Engine.h"
 #include "RobotsGameMode.h"
-#include "Capsule.h"
+#include "Activatable.h"
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -90,10 +90,6 @@ void ARobotCharacter::SetupPlayerInputComponent(class UInputComponent* InputComp
 	InputComponent->BindAction("Start Game", IE_Pressed, this, &ARobotCharacter::RestartPressed);
 
 	InputComponent->BindAction("Activate", IE_Pressed, this, &ARobotCharacter::Activate);
-
-
-	//InputComponent->BindAction("Activate", IE_Pressed, this, &ARobotCharacter::Activate);
-	//InputComponent->BindAction("Laser", IE_Pressed, this, &ARobotCharacter::FireLaser);
 
 
 	// handle touch devices
@@ -420,8 +416,8 @@ void ARobotCharacter::Tick(float deltaTime) {
 	Super::Tick(deltaTime);
 
 	AActor* hitActor = getActorInFront();
-	ACapsule* capsule = Cast<ACapsule>(hitActor);
-	if (capsule) {
+	IActivatable* activatable = Cast<IActivatable>(hitActor);
+	if (activatable) {
 		canActivate = true;
 	}
 	else {
@@ -456,25 +452,9 @@ AActor* ARobotCharacter::getActorInFront() {
 
 void ARobotCharacter::Activate_Implementation() {
 	AActor* actor = getActorInFront();
-	ACapsule* c = Cast<ACapsule>(actor);
-	if (c) {
-		EPowerUp e = c->GetPowerUp();
-		if (e == EPowerUp::P_LASER) {
-			SetCanLaser(true);
-		}
-		else if (e == EPowerUp::P_ASSIMILATE) {
-			SetCanAssimilate(true);
-		}
-		else if (e == EPowerUp::P_REVEAL) {
-			SetCanReveal(true);
-		}
-		else if (e == EPowerUp::P_BOMB) {
-			SetCanBomb(true);
-		}
-
-		c->Destroy();
-
-	}
+	auto a = Cast<IActivatable>(actor);
+	if (a)
+		a->Activate(this);
 }
 
 bool ARobotCharacter::Activate_Validate() {
