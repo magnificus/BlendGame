@@ -161,27 +161,41 @@ void ARobotCharacter::SetIsPunchingFromBP(bool newIsPunching) {
 	SetIsPunching(newIsPunching);
 }
 
-// aiming
+// carrying
 
-//void ARobotCharacter::SetIsAiming(bool newIsAiming) {
-//	isAiming = newIsAiming;
-//	if (Role < ROLE_Authority) {
-//		ServerSetIsAiming(newIsAiming);
-//	}
-//}
-//
-//
-//bool ARobotCharacter::ServerSetIsAiming_Validate(bool newIsAiming) {
-//	return true;
-//}
-//
-//void ARobotCharacter::ServerSetIsAiming_Implementation(bool newIsAiming) {
-//	SetIsAiming(newIsAiming);
-//}
-//
-//void ARobotCharacter::SetIsAimingFromBP(bool newIsAiming) {
-//	SetIsAiming(newIsAiming);
-//}
+void ARobotCharacter::SetIsCarrying(bool newParam) {
+	isCarrying = newParam;
+	if (Role < ROLE_Authority) {
+		ServerSetIsCarrying(newParam);
+	}
+}
+
+
+bool ARobotCharacter::ServerSetIsCarrying_Validate(bool newParam) {
+	return true;
+}
+
+void ARobotCharacter::ServerSetIsCarrying_Implementation(bool newParam) {
+	SetIsCarrying(newParam);
+}
+
+// throwing
+
+void ARobotCharacter::SetIsThrowing(bool newParam) {
+	isThrowing = newParam;
+	if (Role < ROLE_Authority) {
+		ServerSetIsThrowing(newParam);
+	}
+}
+
+
+bool ARobotCharacter::ServerSetIsThrowing_Validate(bool newParam) {
+	return true;
+}
+
+void ARobotCharacter::ServerSetIsThrowing_Implementation(bool newParam) {
+	SetIsThrowing(newParam);
+}
 
 // laser
 
@@ -264,8 +278,15 @@ void ARobotCharacter::ServerSetIsAlive_Implementation(bool newIsAlive) {
 }
 
 void ARobotCharacter::FirePressed() {
-	if (alive)
-		SetIsPunching(true);
+	if (alive) {
+		if (isCarrying) {
+			SetIsThrowing(true);
+			SetIsCarrying(false);
+		}else{
+			SetIsPunching(true);
+		}
+
+	}
 }
 
 void ARobotCharacter::FireReleased() {

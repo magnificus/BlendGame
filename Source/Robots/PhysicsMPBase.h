@@ -22,7 +22,7 @@ public:
 	virtual void Tick(float DeltaSeconds) override;
 
 	UPROPERTY(EditAnywhere, Category = "Mesh", BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
-		UStaticMesh* mesh;
+		UStaticMeshComponent* mesh;
 
 	UFUNCTION()
 		void OnRep_currTrans();

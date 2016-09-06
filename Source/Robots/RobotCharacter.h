@@ -133,6 +133,27 @@ public:
 	virtual void ServerSetStanding_Implementation(EStanding newParam);
 	virtual bool ServerSetStanding_Validate(EStanding newParam);
 
+	// carrying
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Gameplay, Replicated)
+		bool isCarrying;
+	UFUNCTION(BlueprintCallable, Category = "Gameplay")
+		void SetIsCarrying(bool newParam);
+	UFUNCTION(Reliable, Server, WithValidation)
+		void ServerSetIsCarrying(bool newParam);
+	virtual void ServerSetIsCarrying_Implementation(bool newParam);
+	virtual bool ServerSetIsCarrying_Validate(bool newParam);
+
+	// throwing
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Gameplay, Replicated)
+		bool isThrowing;
+	UFUNCTION(BlueprintCallable, Category = "Gameplay")
+		void SetIsThrowing(bool newParam);
+	UFUNCTION(Reliable, Server, WithValidation)
+		void ServerSetIsThrowing(bool newParam);
+	virtual void ServerSetIsThrowing_Implementation(bool newParam);
+	virtual bool ServerSetIsThrowing_Validate(bool newParam);
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
