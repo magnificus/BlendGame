@@ -355,8 +355,6 @@ void ARobotCharacter::ServerSetStanding_Implementation(EStanding newParam)
 }
 
 
-
-
 void ARobotCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
@@ -370,6 +368,8 @@ void ARobotCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 	DOREPLIFETIME(ARobotCharacter, canReveal);
 	DOREPLIFETIME(ARobotCharacter, canBomb);
 	DOREPLIFETIME(ARobotCharacter, standing);
+	DOREPLIFETIME(ARobotCharacter, isCarrying);
+	DOREPLIFETIME(ARobotCharacter, isThrowing);
 
 }
 

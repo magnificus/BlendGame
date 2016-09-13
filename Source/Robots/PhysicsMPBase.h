@@ -31,6 +31,8 @@ public:
 		FTransform currTrans;
 	UPROPERTY(Replicated)
 		FVector currVel;
+	UPROPERTY(Replicated)
+		FVector currAngVel;
 
 	FTransform lastTrans;
 

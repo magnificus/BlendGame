@@ -34,9 +34,10 @@ void APhysicsMPBase::Tick( float DeltaTime )
 	Super::Tick( DeltaTime );
 
 	if (Role == ROLE_Authority) {
-		if (!mesh->GetComponentTransform().Equals(lastTrans, 0.001f)) {
+		if (!mesh->GetComponentTransform().Equals(lastTrans, 0.1f)) {
 			currTrans = mesh->GetComponentTransform();
 			currVel = mesh->GetPhysicsLinearVelocity();
+			currAngVel = mesh->GetPhysicsAngularVelocity();
 		}
 		lastTrans = mesh->GetComponentTransform();
 	}
@@ -45,6 +46,7 @@ void APhysicsMPBase::Tick( float DeltaTime )
 
 void APhysicsMPBase::OnRep_currTrans() {
 	mesh->SetPhysicsLinearVelocity(currVel);
+	mesh->SetPhysicsAngularVelocity(currAngVel);
 	mesh->SetWorldTransform(currTrans);
 }
 
@@ -54,5 +56,6 @@ void APhysicsMPBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 
 	DOREPLIFETIME(APhysicsMPBase, currTrans);
 	DOREPLIFETIME(APhysicsMPBase, currVel);
+	DOREPLIFETIME(APhysicsMPBase, currAngVel);
 
 }
