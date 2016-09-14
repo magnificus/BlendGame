@@ -24,6 +24,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Mesh", BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 		UStaticMeshComponent* mesh;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Replication, Replicated)
+		bool replicatePos;
+
 	UFUNCTION()
 		void OnRep_currTrans();
 

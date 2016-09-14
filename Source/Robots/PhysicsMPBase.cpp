@@ -19,6 +19,7 @@ APhysicsMPBase::APhysicsMPBase()
 
 	bReplicates = true;
 	bReplicateMovement = true;
+	replicatePos = true;
 }
 
 // Called when the game starts or when spawned
@@ -33,12 +34,14 @@ void APhysicsMPBase::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
 
-	if (Role == ROLE_Authority) {
+
+
+	if (replicatePos && Role == ROLE_Authority) {
 		if (!mesh->GetComponentTransform().Equals(lastTrans, 0.1f)) {
 			currTrans = mesh->GetComponentTransform();
-			currVel = mesh->GetPhysicsLinearVelocity();
-			currAngVel = mesh->GetPhysicsAngularVelocity();
 		}
+		currVel = mesh->GetPhysicsLinearVelocity();
+		currAngVel = mesh->GetPhysicsAngularVelocity();
 		lastTrans = mesh->GetComponentTransform();
 	}
 
