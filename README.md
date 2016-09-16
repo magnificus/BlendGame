@@ -4,4 +4,3 @@ BlendGame AKA. BamBoozleBots is a third person blend-em-up. You play as a sentie
 
 
 ![Screenshot](http://i.imgur.com/dpoWh7r.jpg)
-Format: ![Alt Text](url)
