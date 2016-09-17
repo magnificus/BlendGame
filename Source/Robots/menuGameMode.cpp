@@ -30,6 +30,9 @@ void AmenuGameMode::ExecuteFunction(FString parameter)
 	else if (parameter.Equals("host_nature")) {
 		HostGame("nature");
 	}
+	else if (parameter.Equals("host_factory")) {
+		HostGame("factory");
+	}
 	else if (parameter.Equals("join")){
 		ARobotController* c = (ARobotController*) UGameplayStatics::GetPlayerController(GetWorld(), 0);
 		c->showJoinWidget();
