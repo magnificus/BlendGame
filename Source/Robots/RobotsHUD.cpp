@@ -49,15 +49,15 @@ void ARobotsHUD::DrawHUD()
 
 	if (myChar) {
 		if (myChar->canLaser)
-			DrawText("Laser Avaliable (F)", FColor::White, 50, 300, HUDFont);
+			DrawText("(F) Laser Avaliable", FColor::White, 50, 300, HUDFont);
 		if (myChar->canAssimilate)
-			DrawText("Assimilate Available (G)", FColor::White, 50, 320, HUDFont);
+			DrawText("(G) Assimilate Available", FColor::White, 50, 320, HUDFont);
 		if (myChar->canReveal)
-			DrawText("Reveal Available (H)", FColor::White, 50, 340, HUDFont);
+			DrawText("(H) Reveal Available", FColor::White, 50, 340, HUDFont);
 		if (myChar->canBomb)
-			DrawText("EMP Bomb Available (J)", FColor::White, 50, 360, HUDFont);
+			DrawText("(J) EMP Bomb Available", FColor::White, 50, 360, HUDFont);
 		if (myChar->canActivate)
-			DrawText("Use (E)", FColor::White, ScreenDimensions.X / 2, ScreenDimensions.Y / 2);
+			DrawText("(E) Use " + myChar->activatableName, FColor::White, ScreenDimensions.X / 2, ScreenDimensions.Y / 2);
 	}
 
 

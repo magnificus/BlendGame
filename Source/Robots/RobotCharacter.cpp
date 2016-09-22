@@ -440,6 +440,7 @@ void ARobotCharacter::Tick(float deltaTime) {
 	IActivatable* activatable = Cast<IActivatable>(hitActor);
 	if (activatable) {
 		canActivate = true;
+		activatableName = activatable->GetName();
 	}
 	else {
 		canActivate = false;

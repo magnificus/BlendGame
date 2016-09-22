@@ -8,12 +8,6 @@
 AmenuGameMode::AmenuGameMode()
 	: Super()
 {
-	// set default pawn class to our Blueprinted character
-	//static ConstructorHelpers::FClassFinder<APawn> PlayerPawnClassFinder(TEXT("/Game/maps/menuCharacter"));
-	//DefaultPawnClass = PlayerPawnClassFinder.Class;
-
-	//static ConstructorHelpers::FClassFinder<APlayerController> PlayerControllerClassFinder(TEXT("/Game/robotdude/RobotControllerBP"));
-	//PlayerControllerClass = PlayerControllerClassFinder.Class;
 
 	PlayerStateClass = ARobotPlayerState::StaticClass();
 

@@ -33,7 +33,7 @@ EPowerUp ACapsule::GetPowerUp() {
 
 FString ACapsule::GetName()
 {
-	return "Loot Box";
+	return "Loot Crate";
 }
 
 void ACapsule::Activate(ARobotCharacter* robot) {

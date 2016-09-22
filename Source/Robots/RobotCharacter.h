@@ -168,6 +168,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = UI)
 		bool canActivate;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = UI)
+		FString activatableName;
 
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
 		AActor* getActorInFront();
