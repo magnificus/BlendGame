@@ -450,7 +450,7 @@ void ARobotCharacter::Tick(float deltaTime) {
 
 AActor* ARobotCharacter::getActorInFront() {
 	FVector Start = GetActorLocation() + FVector(0, 0, 64);
-	FVector End = Start + FollowCamera->GetForwardVector() * 130;
+	FVector End = Start + FollowCamera->GetForwardVector() * 160;
 
 	FCollisionQueryParams RV_TraceParams = FCollisionQueryParams(FName(TEXT("RV_Trace")), true, this);
 	RV_TraceParams.bTraceComplex = true;
