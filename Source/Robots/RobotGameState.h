@@ -29,5 +29,15 @@ public:
 
 	virtual void SendServerMessageMulti_Implementation(const FText& text);
 	virtual bool SendServerMessageMulti_Validate(const FText& text);
+
+	UFUNCTION(BlueprintCallable, Category = "Data Management")
+		virtual void addObject(AActor* object);
+	UFUNCTION(BlueprintCallable, Category = "Data Management")
+		virtual void removeObject(AActor* object);
+	UFUNCTION(BlueprintCallable, Category = "Data Management")
+		virtual TArray<AActor*> retrieveObjects(UClass* actorClass);
+
+	TMap<UClass*, TArray<AActor*>> actorMap;
+
 	
 };
